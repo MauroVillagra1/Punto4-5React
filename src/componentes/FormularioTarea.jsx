@@ -7,7 +7,6 @@ const FormularioTarea = () => {
   const [listaTareas, setListaTareas] = useState([]);
 
   useEffect(() => {
-    // Obtener la lista de tareas del localStorage al cargar el componente
     const storedTareas = JSON.parse(localStorage.getItem("tareas"));
     console.log(listaTareas);
     if (storedTareas) {
@@ -18,22 +17,14 @@ const FormularioTarea = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que la tarea no esté vacía antes de agregarla
     if (tarea.trim() !== "") {
-      // Guardar la tarea en el array listaTareas
       setListaTareas([...listaTareas, tarea]);
-      // Limpiar el valor del input
       setTarea("");
     }
   };
 
   const handleBorrarTarea = (indexABorrar) => {
-    // Copiar la lista de tareas actual
-    const nuevasTareas = [...listaTareas];
-    // Eliminar la tarea seleccionada por índice
-    nuevasTareas.splice(indexABorrar, 1);
-    // Actualizar la lista de tareas con la tarea eliminada
-    setListaTareas(nuevasTareas);
+    setListaTareas(prevListaTareas => prevListaTareas.filter((_, index) => index !== indexABorrar));
   };
 
   useEffect(() => {
