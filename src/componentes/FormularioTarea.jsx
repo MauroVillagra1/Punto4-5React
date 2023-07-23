@@ -8,7 +8,6 @@ const FormularioTarea = () => {
 
   useEffect(() => {
     const storedTareas = JSON.parse(localStorage.getItem("tareas"));
-    console.log(listaTareas);
     if (storedTareas) {
       setListaTareas(storedTareas);
     }
@@ -28,9 +27,11 @@ const FormularioTarea = () => {
   };
 
   useEffect(() => {
-    // Guardar la lista de tareas en el localStorage cada vez que se actualice, excepto al cargar el componente
     if (listaTareas.length > 0) {
       localStorage.setItem("tareas", JSON.stringify(listaTareas));
+    }
+    else {
+      localStorage.removeItem("tareas"); 
     }
   }, [listaTareas]);
 
@@ -49,7 +50,6 @@ const FormularioTarea = () => {
           </Button>
         </Form.Group>
       </Form>
-      {/* Pasa la lista de tareas y la función handleBorrarTarea como props */}
       <ListaTareas listaTareas={listaTareas} onDelete={handleBorrarTarea} />
     </>
   );
